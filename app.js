@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+	const whatsappNumber = '5522997801245'
 	// Produtos usando imagens locais (coloque as fotos na pasta `images/`)
 	const products = [
 		{id:1,name:'Glow',price:70.00,image:'images/WhatsApp Image 2026-08-18 at 11.32.11 (1).jpeg',description:'Biquíni verde com modelagem confortável. Tecido premium, ideal para dias de sol.',badge:'Novo'},
@@ -45,6 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function saveCart(){localStorage.setItem('usekomka_cart', JSON.stringify(cart))}
+
+	function sendOrderToWhatsApp(items){
+		const total = items.reduce((sum, item) => sum + item.price * item.qty, 0)
+		const orderLines = items.map(item => `${item.name} | Tamanho: ${item.size || 'A definir'} | Quantidade: ${item.qty} | R$ ${formatPrice(item.price * item.qty)}`)
+		const message = [
+			'Olá! Quero fazer este pedido na Usekomka:',
+			'',
+			...orderLines,
+			'',
+			`Total: R$ ${formatPrice(total)}`,
+			'',
+			'Podem me confirmar disponibilidade e formas de pagamento?'
+		].join('\n')
+		window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener')
+	}
 
 	function addToCart(id, size){
 		const prod = products.find(p=>p.id===id)
@@ -140,10 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	modalBuy.addEventListener('click', ()=>{
 		const qty = Math.max(1, parseInt(modalQty.value||1,10))
 		for(let i=0;i<qty;i++) addToCart(activeProduct.id, modalSelectedSize)
-		// simulate instant purchase
-		alert('Compra simulada concluída — obrigado!')
-		cart = []
-		saveCart(); renderCart(); closeModal(); cartEl.classList.add('hidden')
+		sendOrderToWhatsApp(cart)
+		closeModal()
 	})
 
 	cartBtn.addEventListener('click', ()=>{
@@ -155,9 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	checkoutBtn.addEventListener('click', ()=>{
 		if(cart.length===0){ alert('Carrinho vazio.'); return }
-		alert('Compra simulada concluída — obrigado pela preferência!')
-		cart = []
-		saveCart(); renderCart(); cartEl.classList.add('hidden')
+		sendOrderToWhatsApp(cart)
+		cartEl.classList.add('hidden')
 	})
 
 	renderProducts(); renderCart()
