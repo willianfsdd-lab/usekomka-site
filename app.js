@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const whatsappNumber = '5522997801245'
 	// Produtos usando imagens locais (coloque as fotos na pasta `images/`)
 	const products = [
-		{id:1,name:'Glow',price:70.00,image:'images/WhatsApp Image 2026-08-18 at 11.32.11.jpeg',description:'Biquíni verde com modelagem confortável. Tecido premium, ideal para dias de sol.',badge:'Novo'},
-		{id:2,name:'Aura',price:60.00,image:'images/WhatsApp Image 2026-08-18 at 11.32.11 (1).jpeg',description:'Tom nude elegante, design minimalista. Ajuste perfeito e secagem rápida.'}
+		{id:1,name:'Glow',price:70.00,image:'images/WhatsApp Image 2026-08-18 at 11.32.11 (1).jpeg',description:'Tom nude elegante, design minimalista. Ajuste perfeito e secagem rápida.',badge:'Novo'},
+		{id:2,name:'Aura',price:60.00,image:'images/WhatsApp Image 2026-08-18 at 11.32.11.jpeg',description:'Biquíni verde com modelagem confortável. Tecido premium, ideal para dias de sol.'}
 	]
 
 	const grid = document.getElementById('product-grid')
